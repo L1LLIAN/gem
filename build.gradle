@@ -51,6 +51,9 @@ dependencies {
 
     annotationProcessor("org.spongepowered:mixin:0.7.11-SNAPSHOT")
 
+    compileOnly "org.projectlombok:lombok:1.18.22"
+    annotationProcessor "org.projectlombok:lombok:1.18.22"
+
     include "org.jetbrains.kotlin:kotlin-stdlib-jdk8:$kotlin_version"
 }
 
