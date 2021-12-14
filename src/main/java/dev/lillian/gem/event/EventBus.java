@@ -59,7 +59,6 @@ public final class EventBus {
     public void post(Object event) {
         subscriptions.computeIfPresent(event.getClass(), (eventClass, subscribers) -> {
             for (IEventSubscriber subscriber : subscribers) {
-                System.out.println("invoked subscriber");
                 subscriber.invoke(event);
             }
             return subscribers;
