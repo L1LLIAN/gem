@@ -5,6 +5,7 @@ import dev.lillian.gem.event.annotation.Subscribe;
 import dev.lillian.gem.event.events.input.KeyboardInputEvent;
 import dev.lillian.gem.event.events.input.MouseInputEvent;
 import dev.lillian.gem.event.events.render.RenderOverlayEvent;
+import lombok.extern.log4j.Log4j2;
 import net.minecraft.client.Minecraft;
 import org.jetbrains.annotations.NotNull;
 import org.lwjgl.input.Keyboard;
@@ -12,6 +13,7 @@ import org.lwjgl.input.Mouse;
 
 import java.awt.*;
 
+@Log4j2
 public final class Gem {
     private static final Gem INSTANCE = new Gem();
 
@@ -36,12 +38,12 @@ public final class Gem {
 
     @Subscribe
     public void onKeyboardInput(KeyboardInputEvent event) {
-        System.out.println("Released key " + Keyboard.getKeyName(event.getKey()));
+        log.info("Released key " + Keyboard.getKeyName(event.getKey()));
     }
 
     @Subscribe
     public void onMouseInput(MouseInputEvent event) {
-        System.out.println("Released mouse button " + Mouse.getButtonName(event.getButton()));
+        log.info("Released mouse button " + Mouse.getButtonName(event.getButton()));
     }
 
     @NotNull

@@ -27,7 +27,6 @@ public final class EventBus {
                 subscribers.add(methodEventSubscriber);
                 return subscribers;
             });
-            System.out.println("subscriptions = " + subscriptions);
         }
     }
 
