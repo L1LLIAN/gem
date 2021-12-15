@@ -4,11 +4,10 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 
 /**
- * Called when a Mouse button is released
- * ex: LMB, MB4, MB5, etc...
+ * Called when a key is released
  */
 @Getter
 @AllArgsConstructor
-public final class MouseInputEvent {
-    private final int button;
+public final class KeyboardInputEvent {
+    private final int key;
 }
