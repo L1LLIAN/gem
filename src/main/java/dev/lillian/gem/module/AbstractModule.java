@@ -2,6 +2,7 @@ package dev.lillian.gem.module;
 
 import dev.lillian.gem.Gem;
 import dev.lillian.gem.event.EventBus;
+import dev.lillian.gem.model.IToggleable;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.Setter;
@@ -14,7 +15,7 @@ import java.util.List;
 @Getter
 @Setter
 @RequiredArgsConstructor
-public abstract class AbstractModule {
+public abstract class AbstractModule implements IToggleable {
     @NotNull
     protected final List<AbstractModuleMode<?>> modes = new LinkedList<>();
 
@@ -60,16 +61,24 @@ public abstract class AbstractModule {
 
     public void toggle() {
         EventBus bus = Gem.get().getEventBus();
+        AbstractModuleMode<?> mode = getCurrentMode();
+
         if (toggled) {
             // unsub the current mode and module from the event bus
             bus.unsubscribe(this);
-            if (getCurrentMode() != null) {
-                bus.unsubscribe(getCurrentMode());
+            onDisable();
+
+            if (mode != null) {
+                bus.unsubscribe(mode);
+                mode.onDisable();
             }
         } else {
             bus.subscribe(this);
-            if (getCurrentMode() != null) {
-                bus.subscribe(getCurrentMode());
+            onEnable();
+
+            if (mode != null) {
+                bus.subscribe(mode);
+                mode.onEnable();
             }
         }
 
