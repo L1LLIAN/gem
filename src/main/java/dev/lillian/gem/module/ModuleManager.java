@@ -4,6 +4,7 @@ import dev.lillian.gem.event.EventBus;
 import dev.lillian.gem.event.annotation.Subscribe;
 import dev.lillian.gem.event.events.input.KeyboardInputEvent;
 import dev.lillian.gem.event.events.input.MouseInputEvent;
+import dev.lillian.gem.module.impl.movement.speed.SpeedModule;
 import dev.lillian.gem.module.impl.visual.HUDModule;
 import org.jetbrains.annotations.NotNull;
 
@@ -17,6 +18,10 @@ public final class ModuleManager {
         eventBus.subscribe(this);
 
         register(new HUDModule());
+        register(new SpeedModule());
+
+        // temp
+        moduleMap.values().forEach(AbstractModule::postLoad);
     }
 
     private void register(@NotNull AbstractModule module) {

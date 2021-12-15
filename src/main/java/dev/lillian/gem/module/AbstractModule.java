@@ -5,6 +5,7 @@ import dev.lillian.gem.event.EventBus;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.Setter;
+import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.LinkedList;
@@ -14,12 +15,16 @@ import java.util.List;
 @Setter
 @RequiredArgsConstructor
 public abstract class AbstractModule {
+    @NotNull
     protected final List<AbstractModuleMode<?>> modes = new LinkedList<>();
 
+    @NotNull
     private final String name;
+    @NotNull
     private final String displayName;
     private boolean toggled;
 
+    @Nullable
     private String currentMode;
 
     /**
