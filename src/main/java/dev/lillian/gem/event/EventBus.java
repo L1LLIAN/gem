@@ -12,26 +12,28 @@ public final class EventBus {
     private final Map<Class<?>, Set<IEventSubscriber>> subscriptions = new HashMap<>();
 
     public void subscribe(@NotNull Object parent) {
-        for (Method method : parent.getClass().getMethods()) {
+        for (Method method : parent.getClass().getDeclaredMethods()) {
             if (method.getParameterCount() != 1 || !method.isAnnotationPresent(Subscribe.class)) {
                 continue;
             }
 
             Class<?> eventClass = method.getParameterTypes()[0];
             MethodEventSubscriber methodEventSubscriber = new MethodEventSubscriber(parent, method);
+
             subscriptions.compute(eventClass, (eventClass1, subscribers) -> {
                 if (subscribers == null) {
-                    subscribers = new LinkedHashSet<>();
+                    subscribers = new HashSet<>();
                 }
 
                 subscribers.add(methodEventSubscriber);
+
                 return subscribers;
             });
         }
     }
 
     public void unsubscribe(@NotNull Object parent) {
-        for (Method method : parent.getClass().getMethods()) {
+        for (Method method : parent.getClass().getDeclaredMethods()) {
             if (method.getParameterCount() != 1 || !method.isAnnotationPresent(Subscribe.class)) {
                 continue;
             }
@@ -56,11 +58,14 @@ public final class EventBus {
     }
 
     public void post(Object event) {
-        subscriptions.computeIfPresent(event.getClass(), (eventClass, subscribers) -> {
-            for (IEventSubscriber subscriber : subscribers) {
-                subscriber.invoke(event);
-            }
-            return subscribers;
-        });
+        if (!subscriptions.containsKey(event.getClass())) {
+            return;
+        }
+
+        // copy bc sometimes we modify the set while iterating causing cme
+        Set<IEventSubscriber> subscribers = new HashSet<>(subscriptions.get(event.getClass()));
+        for (IEventSubscriber subscriber : subscribers) {
+            subscriber.invoke(event);
+        }
     }
 }

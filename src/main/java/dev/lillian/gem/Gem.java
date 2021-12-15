@@ -1,23 +1,17 @@
 package dev.lillian.gem;
 
 import dev.lillian.gem.event.EventBus;
-import dev.lillian.gem.event.annotation.Subscribe;
-import dev.lillian.gem.event.events.input.KeyboardInputEvent;
-import dev.lillian.gem.event.events.input.MouseInputEvent;
-import dev.lillian.gem.event.events.render.RenderOverlayEvent;
-import lombok.extern.log4j.Log4j2;
-import net.minecraft.client.Minecraft;
+import dev.lillian.gem.module.ModuleManager;
+import lombok.Getter;
 import org.jetbrains.annotations.NotNull;
-import org.lwjgl.input.Keyboard;
-import org.lwjgl.input.Mouse;
 
-import java.awt.*;
-
-@Log4j2
+@Getter
 public final class Gem {
     private static final Gem INSTANCE = new Gem();
 
     private final EventBus eventBus = new EventBus();
+
+    private ModuleManager moduleManager;
 
     private Gem() {
     }
@@ -28,26 +22,6 @@ public final class Gem {
     }
 
     public void onStartGame() {
-        eventBus.subscribe(this);
-    }
-
-    @Subscribe
-    public void onHudRender(Class<RenderOverlayEvent> ignored) {
-        Minecraft.getMinecraft().fontRendererObj.drawString("Gem", 12, 12, Color.RED.getRGB());
-    }
-
-    @Subscribe
-    public void onKeyboardInput(KeyboardInputEvent event) {
-        log.info("Released key " + Keyboard.getKeyName(event.getKey()));
-    }
-
-    @Subscribe
-    public void onMouseInput(MouseInputEvent event) {
-        log.info("Released mouse button " + Mouse.getButtonName(event.getButton()));
-    }
-
-    @NotNull
-    public EventBus getEventBus() {
-        return eventBus;
+        moduleManager = new ModuleManager(eventBus);
     }
 }
