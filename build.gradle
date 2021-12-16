@@ -55,6 +55,7 @@ dependencies {
     annotationProcessor "org.projectlombok:lombok:1.18.22"
 
     include "org.jetbrains.kotlin:kotlin-stdlib-jdk8:$kotlin_version"
+    include "com.fasterxml.jackson.core:jackson-databind:2.13.0"
 }
 
 shadowJar {

@@ -6,6 +6,7 @@ import dev.lillian.gem.event.events.input.KeyboardInputEvent;
 import dev.lillian.gem.event.events.input.MouseInputEvent;
 import dev.lillian.gem.module.impl.movement.speed.SpeedModule;
 import dev.lillian.gem.module.impl.visual.HUDModule;
+import dev.lillian.gem.setting.SettingManager;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.HashMap;
@@ -13,8 +14,11 @@ import java.util.Map;
 
 public final class ModuleManager {
     private final Map<String, AbstractModule> moduleMap = new HashMap<>();
+    private final SettingManager settingManager;
 
-    public ModuleManager(@NotNull EventBus eventBus) {
+    public ModuleManager(@NotNull EventBus eventBus, @NotNull SettingManager settingManager) {
+        this.settingManager = settingManager;
+
         eventBus.subscribe(this);
 
         register(new HUDModule());
@@ -25,6 +29,9 @@ public final class ModuleManager {
     }
 
     private void register(@NotNull AbstractModule module) {
+        settingManager.register(module);
+        module.getModes().forEach(settingManager::register);
+
         moduleMap.put(module.getName(), module);
     }
 
