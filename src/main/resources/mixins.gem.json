@@ -9,6 +9,7 @@
   "client": [
     "client.IMinecraftMixin",
     "client.MinecraftMixin",
+    "entity.EntityPlayerSPMixin",
     "gui.GuiIngameForgeMixin"
   ]
 }

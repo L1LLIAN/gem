@@ -56,6 +56,7 @@ dependencies {
 
     include "org.jetbrains.kotlin:kotlin-stdlib-jdk8:$kotlin_version"
     include "com.fasterxml.jackson.core:jackson-databind:2.13.0"
+    include "com.github.Revxrsal.Lamp:common:1.9"
 }
 
 shadowJar {
