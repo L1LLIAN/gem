@@ -7,12 +7,14 @@ import dev.lillian.gem.event.events.input.MouseInputEvent;
 import dev.lillian.gem.module.impl.movement.speed.SpeedModule;
 import dev.lillian.gem.module.impl.visual.HUDModule;
 import dev.lillian.gem.setting.SettingManager;
+import lombok.Getter;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.HashMap;
 import java.util.Map;
 
 public final class ModuleManager {
+    @Getter
     private final Map<String, AbstractModule> moduleMap = new HashMap<>();
     private final SettingManager settingManager;
 
