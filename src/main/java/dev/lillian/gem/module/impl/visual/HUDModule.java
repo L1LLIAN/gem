@@ -16,7 +16,7 @@ public final class HUDModule extends AbstractModule {
     }
 
     @Subscribe
-    void onRenderOverlay(Class<RenderOverlayEvent> ignored) {
+    void onRenderOverlay(RenderOverlayEvent event) {
         VERDANA_21.drawString("Gem", 12, 12, Color.RED.getRGB(), false);
     }
 }

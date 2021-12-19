@@ -2,6 +2,7 @@ package dev.lillian.gem.event.subscriber.impl;
 
 import dev.lillian.gem.event.subscriber.IEventSubscriber;
 import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
@@ -24,7 +25,7 @@ public final class MethodEventSubscriber implements IEventSubscriber {
     }
 
     @Override
-    public void invoke(@NotNull Object event) {
+    public void invoke(@Nullable Object event) {
         try {
             method.invoke(parent, event);
         } catch (IllegalAccessException | InvocationTargetException e) {

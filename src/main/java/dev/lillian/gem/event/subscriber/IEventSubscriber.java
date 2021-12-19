@@ -1,7 +1,7 @@
 package dev.lillian.gem.event.subscriber;
 
-import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
 public interface IEventSubscriber {
-    void invoke(@NotNull Object event);
+    void invoke(@Nullable Object event);
 }

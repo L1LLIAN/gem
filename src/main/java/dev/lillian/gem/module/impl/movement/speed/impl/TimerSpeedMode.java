@@ -16,7 +16,7 @@ public final class TimerSpeedMode extends AbstractModuleMode<SpeedModule> {
     }
 
     @Subscribe
-    void onTick(Class<TickEvent> ignored) {
+    void onTick(TickEvent event) {
         ((IMinecraftMixin) Minecraft.getMinecraft()).getTimer().timerSpeed = 10 * ThreadLocalRandom.current().nextFloat();
     }
 }

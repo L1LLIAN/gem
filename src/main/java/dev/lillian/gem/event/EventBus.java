@@ -58,14 +58,16 @@ public final class EventBus {
     }
 
     public void post(Object event) {
-        if (!subscriptions.containsKey(event.getClass())) {
+        boolean isClassEvent = event instanceof Class<?>;
+        Class<?> type = isClassEvent ? (Class<?>) event : event.getClass();
+        if (!subscriptions.containsKey(type)) {
             return;
         }
 
         // copy bc sometimes we modify the set while iterating causing cme
-        Set<IEventSubscriber> subscribers = new HashSet<>(subscriptions.get(event.getClass()));
+        Set<IEventSubscriber> subscribers = new HashSet<>(subscriptions.get(type));
         for (IEventSubscriber subscriber : subscribers) {
-            subscriber.invoke(event);
+            subscriber.invoke(isClassEvent ? null : event);
         }
     }
 }
