@@ -3,6 +3,7 @@ package dev.lillian.gem.module;
 import dev.lillian.gem.Gem;
 import dev.lillian.gem.event.EventBus;
 import dev.lillian.gem.model.IToggleable;
+import dev.lillian.gem.model.MinecraftInstance;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.Setter;
@@ -15,7 +16,7 @@ import java.util.List;
 @Getter
 @Setter
 @RequiredArgsConstructor
-public abstract class AbstractModule implements IToggleable {
+public abstract class AbstractModule extends MinecraftInstance implements IToggleable {
     @NotNull
     protected final List<AbstractModuleMode<?>> modes = new LinkedList<>();
 
